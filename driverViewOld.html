@@ -81,13 +81,6 @@
     			strokeWeight: 1
   			}
 		});
-
-		map.data.addListener('mouseover', function(event) {
-			map.data.revertStyle();
-			map.data.overrideStyle(event.feature, {strokeWeight: 3});
-		});
-		
-		map.data
 	}
 
 	window.initMap = initMap;
@@ -95,12 +88,10 @@
     <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF2m0svp07tGLzObVsQFEIMw6EpRh14Hc&callback=initMap">
     </script>
-	<div id="zone-name"></div>
-	
 	
 	<p>To personalize the details for a specific trip, enter your information below.</p>
 
-	<form action= "file.html" method = "get">
+	<form action= "file:///C:/Users/kayla/Desktop/TripDetails.html" method = "get">
 	  <fieldset>
 		<legend>Trip Details:</legend>
 		<label for="zone-search">Zone Search:</label>
