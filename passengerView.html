@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Visual Analytics for Rideshare Services in NYC</title>
+    <style>
+      html, body {
+        height: 370px;
+        padding: 0;
+        margin: 0;
+        }
+      #map {
+       height: 700px;
+       width: 700px;
+       overflow: hidden;
+       float: left;
+       border: thin solid #333;
+       }
+    </style>
+  </head>
+  <body>
+  
+  <h1><center>Visual Analytics for Rideshare Services in NYC</center></h1>
+  <h1><center>Driver View</center></h1>
+    <div id="map"></div>
+    <script>
+		let map;
+
+		function initMap() {
+ 		 map = new google.maps.Map(document.getElementById("map"), {
+   		 zoom: 10,
+  		  center: { lat: 40.7128, lng: -74.0060 },
+ 		 });
+
+ 		 // NOTE: This uses cross-domain XHR, and may not work on older browsers.
+ 		map.data.loadGeoJson('https://raw.githubusercontent.com/billiegiansante/kmlFiles/master/map.geojson');
+
+		map.data.setStyle(function(feature) {
+  		var objectid = feature.getProperty('objectid');
+  		var color = "green";
+  		if (objectid == "1") {
+    			color = "red";
+  		}
+  		return {
+    			fillColor: color,
+    			strokeWeight: 1
+  			}
+		});
+	}
+
+	window.initMap = initMap;
+    </script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF2m0svp07tGLzObVsQFEIMw6EpRh14Hc&callback=initMap">
+    </script>
+	
+	<p>To personalize the details for a specific trip, enter your information below.</p>
+
+<form action= "file:///C:/Users/kayla/Desktop/TripDetails.html">
+  <fieldset>
+    <legend>Trip Details:</legend>
+    <label for="stAddress">Street Address:</label><br>
+    <input type="text" id="stAddress" name="stAddress" value=""><br>
+    <label for="city">City:</label><br>
+    <input type="text" id="city" name="city" value=""><br>
+	<label for="state">State:</label><br>
+    <input type="text" id="state" name="state" value=""><br>
+    <label for="zip">Zipcode:</label><br>
+    <input type="text" id="zip" name="zip" value=""><br><br>
+    <input type="submit" value="Submit">
+  </fieldset>
+</form>
+
+  </body>
+</html>

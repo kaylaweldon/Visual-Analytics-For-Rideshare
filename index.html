@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Visual Analytics for Rideshare Services in NYC</title>
+		<script>
+			function redirectToSelectedView() {
+				var selectedView = document.querySelector('input[name="p_view"]:checked').value;
+				if (selectedView === "Passenger") {
+					window.location.href = "passengerView.html";
+				} else if (selectedView === "Driver") {
+					window.location.href = "driverView.html";
+				} else if (selectedView === "Executive") {
+					window.location.href = "execView.html";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1><center>Visual Analytics for Rideshare Services in NYC</center></h1>
+		<p>Please select your preferred view</p>
+		<form onsubmit="redirectToSelectedView(); return false;">
+			<input type="radio" id="pass" name="p_view" value="Passenger">
+			<label for="pass">Passenger</label><br>
+			<input type="radio" id="drive" name="p_view" value="Driver">
+			<label for="drive">Driver</label><br>
+			<input type="radio" id="javascript" name="p_view" value="Executive">
+			<label for="exec">Executive</label>
+			<br>
+			<br>
+			<input type="submit" value="Submit">
+		</form>
+	</body>
+</html>
