@@ -17,17 +17,6 @@
 		float: left;
 		border: thin solid #333;
 	}
-	#zone {
-		position: absolute;
-		z-index: 9999;
-		display: none;
-		background-color: #fff;
-		padding: 5px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		font-size: 14px;
-	}
-
 	   
 	.dropdown-content {
 		position: absolute;
@@ -96,24 +85,9 @@
 		map.data.addListener('mouseover', function(event) {
 			map.data.revertStyle();
 			map.data.overrideStyle(event.feature, {strokeWeight: 3});
-		
-			var zoneName = document.getElementById('zone');
-			zoneName.style.display = 'block';
-			zoneName.innerHTML = 'Zone: ' + event.feature.getProperty('zone');
-
-			map.addListener('mousemove', function(event) {
-				zoneName.style.left = event.pixel.x + 'px';
-				zoneName.style.top = event.pixel.y + 'px';
-			});
 		});
-
-			map.data.addListener('mouseout', function(event) {
-				map.data.revertStyle();
-
-			var zoneName = document.getElementById('zone');
-			zoneName.style.display = 'none';
-});
-
+		
+		map.data
 	}
 
 	window.initMap = initMap;
@@ -121,7 +95,7 @@
     <script async
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF2m0svp07tGLzObVsQFEIMw6EpRh14Hc&callback=initMap">
     </script>
-	<div id="zone"></div>
+	<div id="zone-name"></div>
 	
 	
 	<p>To personalize the details for a specific trip, enter your information below.</p>
