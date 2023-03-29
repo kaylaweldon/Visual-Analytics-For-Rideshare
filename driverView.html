@@ -27,7 +27,26 @@
 		border-radius: 5px;
 		font-size: 14px;
 	}
-
+	#borough {
+		position: absolute;
+		z-index: 9999;
+		display: none;
+		background-color: #fff;
+		padding: 5px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 14px;
+	}
+	#info-box {
+    position: absolute;
+    z-index: 9999;
+    display: none;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
 	   
 	.dropdown-content {
 		position: absolute;
@@ -39,36 +58,13 @@
 		border: 1px solid #ccc;
 	}
 
-	.dropdown-content a {
-		color: black;
-		padding: 12px 16px;
-		text-decoration: none;
-		display: block;
-	}
-
-	.dropdown-content a:hover {
-		background-color: #ddd;
-	}
-	
-	.dropdownlist {
-		width: auto;
-		height: auto;
-	}
-	
-	.dropdown-content a.dropdown-item {
-		color: black;
-		padding: 12px 16px;
-		text-decoration: none;
-		display: block;
-	}
-
-
     </style>
   </head>
   <body>
 	<h1><center>Visual Analytics for Rideshare Services in NYC</center></h1>
 	<h1><center>Driver View</center></h1>
     <div id="map"></div>
+	<div id="info-box"></div>
     <script>
 		let map;
 
@@ -93,17 +89,20 @@
   			}
 		});
 
+		//thicker outline & display zone/borough when you hover over a zone
 		map.data.addListener('mouseover', function(event) {
 			map.data.revertStyle();
 			map.data.overrideStyle(event.feature, {strokeWeight: 3});
 		
-			var zoneName = document.getElementById('zone');
-			zoneName.style.display = 'block';
-			zoneName.innerHTML = 'Zone: ' + event.feature.getProperty('zone');
+			var infoBox = document.getElementById('info-box');
+			infoBox.style.display = 'block';
+			
+			infoBox.innerHTML = 'Zone: ' + event.feature.getProperty('zone') + '<br/>' +
+								 'Borough: ' + event.feature.getProperty('borough');
 
 			map.addListener('mousemove', function(event) {
-				zoneName.style.left = event.pixel.x + 'px';
-				zoneName.style.top = event.pixel.y + 'px';
+				infoBox.style.left = event.pixel.x + 'px';
+			infoBox.style.top = event.pixel.y + 'px';
 			});
 		});
 
@@ -114,7 +113,7 @@
 			zoneName.style.display = 'none';
 });
 
-	}
+}
 
 	window.initMap = initMap;
     </script>
@@ -122,6 +121,7 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF2m0svp07tGLzObVsQFEIMw6EpRh14Hc&callback=initMap">
     </script>
 	<div id="zone"></div>
+	<div id="borough"></div>
 	
 	
 	<p>To personalize the details for a specific trip, enter your information below.</p>
