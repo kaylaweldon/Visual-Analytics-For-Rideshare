@@ -119,8 +119,8 @@
 			map.data.addListener('mouseout', function (event) {
 				map.data.revertStyle();
 
-				var zoneName = document.getElementById('zone');
-				zoneName.style.display = 'none';
+				var infoBox = document.getElementById('info-box');
+				infoBox.style.display = 'none';
 			});
 
 		}
@@ -198,22 +198,45 @@
 				<option value="10:30:00">10:30 PM</option>
 				<option value="11:00:00">11:00 PM</option>
 				<option value="11:30:00">11:30 PM</option>
-				</select>
-				<input type="submit" value="Submit">
+			</select>
+			<input type="submit" value="Submit">
 
-				<br><br>
-				<label for="bouroughSelect">Select Borough:</label><br>
-				<select id="bouroughSelect" name="bouroughSelect" onchange="onBoroughSelect()">
-					<option value="">Select a borough</option>
-					<option value="bronx">Bronx</option>
-					<option value="brooklyn">Brooklyn</option>
-					<option value="manhattan">Manhattan</option>
-					<option value="queens">Queens</option>
-					<option value="staten island">Staten Island</option>
-				</select>
-				<br><br>
-				<input type="submit" value="Submit" onclick="processForm(event)">
-
+			<br><br>
+			<script>
+				function processForm(event) {
+					var boroughSelect = document.getElementById('boroughSelect');
+					var selectedBorough = boroughSelect.value;
+					if (selectedBorough) {
+						fetch(
+							"https://raw.githubusercontent.com/billiegiansante/kmlFiles/master/map.geojson"
+						)
+							.then(function (response) {
+								return response.json();
+							})
+							.then(function (data) {
+								map.data.forEach(function (feature) {
+									var borough = feature.getProperty("borough");
+									var color = "green";
+									if (borough === selectedBorough) {
+										color = "red";
+									}
+									map.data.overrideStyle(feature, { fillColor: color });
+								});
+							});
+					}
+				}
+			</script>
+			<label for="boroughSelect">Select Borough:</label><br>
+			<select id="boroughSelect" name="boroughSelect">
+				<option value="">Select a borough:</option>
+				<option value="bronx">Bronx</option>
+				<option value="brooklyn">Brooklyn</option>
+				<option value="manhattan">Manhattan</option>
+				<option value="queens">Queens</option>
+				<option value="staten-island">Staten Island</option>
+			</select>
+			<br><br>
+			<input type="submit" value="Submit" onclick="processForm(event)">
 		</fieldset>
 	</form>
 </body>

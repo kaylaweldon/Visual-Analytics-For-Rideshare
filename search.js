@@ -25,10 +25,6 @@ function searchZone() {
 						searchBox.value = this.textContent.trim();
 
 						const zoneId = zones[i][0]; // get the zone ID from the array
-						// map = new google.maps.Map(document.getElementById("map"), {
-						// 	zoom: 10,
-						// 	center: { lat: 40.7128, lng: -74.0060 },
-						// });
 
 						// NOTE: This uses cross-domain XHR, and may not work on older browsers.
 						map.data.loadGeoJson('https://raw.githubusercontent.com/billiegiansante/kmlFiles/master/map.geojson');
