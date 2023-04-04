@@ -1,5 +1,11 @@
 function searchZone() {
-	initMap();
+	// Reset the map
+	map.data.forEach(function (feature) {
+		map.data.overrideStyle(feature, { fillColor: null });
+	});
+	map.data.forEach(function (feature) {
+		map.data.remove(feature);
+	});
 	var input = document.getElementById("zone-search");
 	var filter = input.value.toUpperCase();
 	var dropdown = document.getElementById("dropdown");
@@ -8,19 +14,19 @@ function searchZone() {
 
 	// Create a new XMLHttpRequest object
 	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if(this.readyState == 4 && this.status == 200) {
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {
 			const fileContents = this.responseText.split("\n");
 			const zones = fileContents.map(line => line.split(",")); // create array of arrays
 			dropdownList.innerHTML = "";
 			for (let i = 0; i < zones.length; i++) {
-				
+
 				if (zones[i][2].toUpperCase().indexOf(filter) > -1) {
 					const li = document.createElement('li');
 					li.textContent = zones[i][2];
 					dropdownList.appendChild(li);
 
-					li.addEventListener('click', function() {
+					li.addEventListener('click', function () {
 
 						const searchBox = document.getElementById('zone-search');
 						searchBox.value = this.textContent.trim();
@@ -31,7 +37,7 @@ function searchZone() {
 						map.data.loadGeoJson('https://raw.githubusercontent.com/billiegiansante/kmlFiles/master/map.geojson');
 
 
-						map.data.setStyle(function(feature) {
+						map.data.setStyle(function (feature) {
 							var objectid = feature.getProperty('objectid');
 							var color = "green";
 							if (objectid == zoneId) {
@@ -43,7 +49,7 @@ function searchZone() {
 							}
 						});
 					});
-				}	
+				}
 			}
 		}
 	};
