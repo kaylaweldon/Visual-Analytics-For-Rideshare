@@ -1,11 +1,5 @@
 function searchZone() {
-	// Reset the map
-	map.data.forEach(function (feature) {
-		map.data.overrideStyle(feature, { fillColor: null });
-	});
-	map.data.forEach(function (feature) {
-		map.data.remove(feature);
-	});
+	initMap();
 	var input = document.getElementById("zone-search");
 	var filter = input.value.toUpperCase();
 	var dropdown = document.getElementById("dropdown");
