@@ -1,5 +1,4 @@
 function searchZone() {
-	initMap();
 	var input = document.getElementById("zone-search");
 	var filter = input.value.toUpperCase();
 	var dropdown = document.getElementById("dropdown");
